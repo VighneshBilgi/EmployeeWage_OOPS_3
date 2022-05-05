@@ -1,20 +1,58 @@
 package com.bridgelabz.employeewage;
 
+import java.util.Scanner;
+
 class CalculateEmployeeWage{
-    private final int WAGE_PER_HOUR = 20;
-    private final int FULL_DAY_HOUR = 8;
-    private final int PART_DAY_HOUR = 4;
-    private final int TOTAL_WORK_DAY = 20;
-    private final int TOTAL_WORK_HOUR = 100;
 
-    private int dayCount = 1;
-    private int hourCount = 0;
-    private int totalWage = 0;
-    private int dayPresent = 0;
+    private boolean enterDetailsAgain = true;
 
-    public void totalWage(){
+    public void getCompanyDetails(){
 
-        while (dayCount<=TOTAL_WORK_DAY && hourCount<=TOTAL_WORK_HOUR) {
+        while(enterDetailsAgain) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter Company Name:");
+            String companyName = sc.nextLine();
+
+            System.out.println("Enter Wage per Hour:");
+            int wagePerHour = sc.nextInt();
+
+            System.out.println("Enter Wage for Full Day's work:");
+            int fullDayHour = sc.nextInt();
+
+            System.out.println("Enter Wage for Part Time's work:");
+            int partDayHour = sc.nextInt();
+
+            System.out.println("Enter Total No. of Working Days in a Month:");
+            int totalWorkDay = sc.nextInt();
+
+            System.out.println("Enter Total No. of Working Hours in a Month:");
+            int totalWorkHour = sc.nextInt();
+
+            totalWage(companyName,wagePerHour,fullDayHour,partDayHour,totalWorkDay,totalWorkHour);
+
+            System.out.println("Would you like to enter again ?(Enter Y to continue or any key to exit the program)");
+            char c = sc.next().charAt(0);
+
+            if(c == 'Y'|| c == 'y'){
+                continue;
+            }
+            else {
+                System.out.println("Thank you for using the Employee Wage Computation Program");
+                break;
+            }
+
+        }
+    }
+
+    public void totalWage(String companyName,int wagePerHour,int fullDayHour,int partDayHour,int totalWorkDay,int totalWorkHour){
+
+        int dayCount = 1;
+        int hourCount = 0;
+        int totalWage = 0;
+        int dayPresent = 0;
+
+
+        while (dayCount<=totalWorkDay && hourCount<=totalWorkHour) {
 
             int dailyWage = 0;
             int attendance = (int) (Math.random() * 10) % 3;
@@ -22,14 +60,14 @@ class CalculateEmployeeWage{
             switch (attendance) {
                 case 1:
                     System.out.println("Employee is present Full Time");
-                    hourCount = hourCount + FULL_DAY_HOUR;
-                    dailyWage = WAGE_PER_HOUR * FULL_DAY_HOUR;
+                    hourCount = hourCount + fullDayHour;
+                    dailyWage = wagePerHour * fullDayHour;
                     dayPresent++;
                     break;
                 case 2:
                     System.out.println("Employee is present Part Time");
-                    hourCount = hourCount + PART_DAY_HOUR;
-                    dailyWage = WAGE_PER_HOUR * PART_DAY_HOUR;
+                    hourCount = hourCount + partDayHour;
+                    dailyWage = wagePerHour * partDayHour;
                     dayPresent++;
                     break;
                 default:
@@ -40,10 +78,11 @@ class CalculateEmployeeWage{
             totalWage = totalWage + dailyWage;
             dayCount++;
         }
-        System.out.println("In one month of "+(dayCount-1)+" working days, employee worked for :\n"
-                +dayPresent+ " days and \n"
-                + hourCount + " hours and \n"+
-                "earned total wages of "+ totalWage);
+        System.out.println("For company "+ companyName +". \n" +
+                "In one month of "+(dayCount-1)+" working days, for :\n"
+                +"employees present for "+dayPresent+ " days and \n"
+                +"worked for "+ hourCount + " hours. \n"+
+                "earn wages: "+ totalWage);
 
     }
 }
@@ -55,7 +94,7 @@ public class EmployeeWage {
         System.out.println("Welcome to Employee Wage Computation Program");
 
         CalculateEmployeeWage cew = new CalculateEmployeeWage();
-        cew.totalWage();
+        cew.getCompanyDetails();
 
     }
 }

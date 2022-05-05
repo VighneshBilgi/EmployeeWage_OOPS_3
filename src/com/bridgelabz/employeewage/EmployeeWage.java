@@ -2,7 +2,14 @@ package com.bridgelabz.employeewage;
 
 import java.util.Scanner;
 
-class CalculateEmployeeWage{
+class EmpWageBuilder{
+
+    private String companyName = "";
+    private int wagePerHour = 0;
+    private int fullDayHour = 0;
+    private int partDayHour = 0;
+    private int totalWorkDay = 0;
+    private int totalWorkHour = 0;
 
     private boolean enterDetailsAgain = true;
 
@@ -11,24 +18,24 @@ class CalculateEmployeeWage{
         while(enterDetailsAgain) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter Company Name:");
-            String companyName = sc.nextLine();
+            companyName = sc.nextLine();
 
             System.out.println("Enter Wage per Hour:");
-            int wagePerHour = sc.nextInt();
+             wagePerHour = sc.nextInt();
 
             System.out.println("Enter Wage for Full Day's work:");
-            int fullDayHour = sc.nextInt();
+             fullDayHour = sc.nextInt();
 
             System.out.println("Enter Wage for Part Time's work:");
-            int partDayHour = sc.nextInt();
+             partDayHour = sc.nextInt();
 
             System.out.println("Enter Total No. of Working Days in a Month:");
-            int totalWorkDay = sc.nextInt();
+             totalWorkDay = sc.nextInt();
 
             System.out.println("Enter Total No. of Working Hours in a Month:");
-            int totalWorkHour = sc.nextInt();
+             totalWorkHour = sc.nextInt();
 
-            totalWage(companyName,wagePerHour,fullDayHour,partDayHour,totalWorkDay,totalWorkHour);
+            totalWage();
 
             System.out.println("Would you like to enter again ?(Enter Y to continue or any key to exit the program)");
             char c = sc.next().charAt(0);
@@ -44,7 +51,7 @@ class CalculateEmployeeWage{
         }
     }
 
-    public void totalWage(String companyName,int wagePerHour,int fullDayHour,int partDayHour,int totalWorkDay,int totalWorkHour){
+    public void totalWage(){
 
         int dayCount = 1;
         int hourCount = 0;
@@ -93,8 +100,8 @@ public class EmployeeWage {
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Wage Computation Program");
 
-        CalculateEmployeeWage cew = new CalculateEmployeeWage();
-        cew.getCompanyDetails();
+        EmpWageBuilder ewb = new EmpWageBuilder();
+        ewb.getCompanyDetails();
 
     }
 }

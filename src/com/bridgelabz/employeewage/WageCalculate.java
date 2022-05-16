@@ -11,5 +11,5 @@ public interface WageCalculate {
     int dayPresent = 0;
 
 
-    void totalWage();
+    void calculateTotalWage();
 }

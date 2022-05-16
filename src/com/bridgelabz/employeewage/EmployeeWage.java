@@ -160,9 +160,7 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
         System.out.println("*******************************************");
     }
     @Override
-    public void totalWage(){
-
-
+    public void calculateTotalWage(){
 
         for(CompanyEmpWage company:companyEmpWageList) {
 
@@ -200,18 +198,26 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
             }
 
 
-            System.out.println("For company " + company.companyName + ". \n" +
-                    "In one month of " + (dayCount - 1) + " working days:\n"
-                    + "employees present for " + dayPresent + " days and \n"
-                    + "worked for " + hourCount + " hours \n" +
-                    "earn total wages of : " + totalWage +"\n");
-
             company.setCompanyTotalWage(totalWage);
             company.setTotalDayCount(dayCount);
             company.setTotalHourCount(hourCount);
             company.setTotalDayPresent(dayPresent);
         }
         System.out.println("*******************************************");
+    }
+
+    public void getTotalWage(){
+
+        for(CompanyEmpWage company:companyEmpWageList) {
+            System.out.println("For company " + company.companyName + ". \n" +
+                    "In one month of " + (company.totalDayCount - 1) + " working days:\n"
+                    + "employees present for " + company.totalDayPresent + " days and \n"
+                    + "worked for " + company.totalHourCount + " hours \n" +
+                    "earn total wages of : " + company.companyTotalWage + "\n");
+        }
+
+        System.out.println("*******************************************");
+
     }
 }
 
@@ -239,7 +245,8 @@ public class EmployeeWage {
         }
 
         ewb.getDetails();
-        ewb.totalWage();
+        ewb.calculateTotalWage();
+        ewb.getTotalWage();
 
         System.out.println("Exiting Program...");
 

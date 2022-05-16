@@ -15,6 +15,12 @@ class CompanyEmpWage {
     int totalWorkDay;
     int totalWorkHour ;
 
+    int companyTotalWage;
+    int totalDayPresent;
+    int totalHourCount;
+    int totalDayCount;
+
+
 
     CompanyEmpWage(){
 
@@ -44,6 +50,22 @@ class CompanyEmpWage {
         this.totalWorkHour =totalWorkHour;
     }
 
+    public void setCompanyTotalWage(int companyTotalWage){
+        this.companyTotalWage =companyTotalWage;
+    }
+
+    public void setTotalDayPresent(int totalDayPresent){
+        this.totalDayPresent =totalDayPresent;
+    }
+
+    public void setTotalHourCount(int totalHourCount){
+        this.totalHourCount =totalHourCount;
+    }
+
+    public void setTotalDayCount(int totalDayCount){
+        this.totalDayCount =totalDayCount;
+    }
+
     public String getCompanyName(){
         return companyName;
     }
@@ -68,6 +90,21 @@ class CompanyEmpWage {
         return totalWorkHour;
     }
 
+    public int getCompanyTotalWage(){
+        return companyTotalWage;
+    }
+
+    public int getTotalDayPresent(){
+        return totalDayPresent;
+    }
+
+    public int getTotalHourCount(){
+        return totalHourCount;
+    }
+
+    public int getTotalDayCount(){
+        return totalDayCount;
+    }
 
 
 }
@@ -75,8 +112,6 @@ class CompanyEmpWage {
 class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
 
     List<CompanyEmpWage> companyEmpWageList = new ArrayList<>();
-
-
 
 
     public void addDetails(){
@@ -170,6 +205,11 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
                     + "employees present for " + dayPresent + " days and \n"
                     + "worked for " + hourCount + " hours \n" +
                     "earn total wages of : " + totalWage +"\n");
+
+            company.setCompanyTotalWage(totalWage);
+            company.setTotalDayCount(dayCount);
+            company.setTotalHourCount(hourCount);
+            company.setTotalDayPresent(dayPresent);
         }
         System.out.println("*******************************************");
     }

@@ -1,57 +1,137 @@
 package com.bridgelabz.employeewage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-class CompanyEmpWage{
-     String companyName = "";
-     int wagePerHour = 0;
-     int fullDayHour = 0;
-     int partDayHour = 0;
-     int totalWorkDay = 0;
-     int totalWorkHour = 0;
 
-     public static int arrayLength = 0;
+class CompanyEmpWage {
+
+     static Scanner sc1 = new Scanner(System.in);
+     String companyName;
+     int wagePerHour;
+     int fullDayHour;
+     int partDayHour;
+     int totalWorkDay;
+     int totalWorkHour ;
+
 
     CompanyEmpWage(){
 
      }
 
-    CompanyEmpWage(String companyName,int wagePerHour,int fullDayHour,int partDayHour,int totalWorkDay,int totalWorkHour){
-        this.companyName = companyName;
-
-        this.wagePerHour =wagePerHour;
-
-        this.fullDayHour =fullDayHour;
-
-        this.partDayHour=partDayHour;
-
-        this.totalWorkDay=totalWorkDay;
-
-        this.totalWorkHour =totalWorkHour;
-
-
+    public void setCompanyName(String companyName){
+       this.companyName = companyName;
     }
 
-//    public static void arrayOfObjLength(int length){
-//        arrayLength = length;
-//    }
+    public void setWagePerHour(int wagePerHour){
+        this.wagePerHour = wagePerHour;
+    }
+
+    public void setFullDayHour(int fullDayHour){
+        this.fullDayHour = fullDayHour;
+    }
+
+    public void setPartDayHour(int partDayHour){
+        this.partDayHour = partDayHour;
+    }
+
+    public void setTotalWorkDay(int totalWorkDay){
+        this.totalWorkDay= totalWorkDay;
+    }
+
+    public void setTotalWorkHour(int totalWorkHour){
+        this.totalWorkHour =totalWorkHour;
+    }
+
+    public String getCompanyName(){
+        return companyName;
+    }
+
+    public int getWagePerHour(){
+        return wagePerHour;
+    }
+
+    public int getFullDayHour(){
+        return fullDayHour;
+    }
+
+    public int getPartDayHour(){
+        return partDayHour;
+    }
+
+    public int getTotalWorkDay(){
+        return totalWorkDay;
+    }
+
+    public int getTotalWorkHour(){
+        return totalWorkHour;
+    }
+
+
 
 }
 
 class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
 
-    CompanyEmpWage[] arr = new CompanyEmpWage[arrayLength];
+    List<CompanyEmpWage> companyEmpWageList = new ArrayList<>();
 
+
+    public void addDetails(){
+        CompanyEmpWage cew = new CompanyEmpWage();
+
+        System.out.println("Enter Company Name:");
+        companyName = sc1.next();
+        cew.setCompanyName(companyName);
+        System.out.println("Enter Wage per Hour:");
+        wagePerHour = sc1.nextInt();
+        cew.setWagePerHour(wagePerHour);
+        System.out.println("Enter Hours for Full Day's work:");
+        fullDayHour = sc1.nextInt();
+        cew.setFullDayHour(fullDayHour);
+        System.out.println("Enter Hours for Part Time's work:");
+        partDayHour = sc1.nextInt();
+        cew.setPartDayHour(partDayHour);
+        System.out.println("Enter Total No. of Working Days in a Month:");
+        totalWorkDay = sc1.nextInt();
+        cew.setTotalWorkDay(totalWorkDay);
+        System.out.println("Enter Total No. of Working Hours in a Month:");
+        totalWorkHour = sc1.nextInt();
+        cew.setTotalWorkHour(totalWorkHour);
+        companyEmpWageList.add(cew);
+
+    }
+
+    public void getDetails(){
+
+        System.out.println("You entered the Wage information for the following companies: ");
+        for(CompanyEmpWage company:companyEmpWageList){
+
+            companyName = company.getCompanyName();
+            System.out.println("Company Name: "+companyName);
+            wagePerHour = company.getWagePerHour();
+            System.out.println("Wage per Hour: "+wagePerHour);
+            fullDayHour = company.getFullDayHour();
+            System.out.println("Hours for Full Day's work: "+fullDayHour);
+            partDayHour = company.getPartDayHour();
+            System.out.println("Hours for Part Time's work: "+partDayHour);
+            totalWorkDay = company.getTotalWorkDay();
+            System.out.println("Total No. of Working Days in a Month: "+totalWorkDay);
+            totalWorkHour = company.getTotalWorkHour();
+            System.out.println("Total No. of Working Hours in a Month: "+totalWorkHour);
+        }
+
+    }
     @Override
-    public void totalWage(CompanyEmpWage[] arr){
+      public void totalWage(){
 
         int dayCount = WageCalculate.dayCount;
         int hourCount = WageCalculate.hourCount;
         int totalWage = WageCalculate.totalWage;
         int dayPresent = WageCalculate.dayPresent;
 
-        for(int i = 0 ; i<arr.length;i++) {
-            while (dayCount <= arr[i].totalWorkDay && hourCount <= arr[i].totalWorkHour) {
+       for(CompanyEmpWage company:companyEmpWageList) {
+            while (dayCount <= company.totalWorkDay && hourCount <= company.totalWorkHour) {
 
                 int dailyWage = 0;
                 int attendance = (int) (Math.random() * 10) % 3;
@@ -59,14 +139,14 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
                 switch (attendance) {
                     case 1:
                         System.out.println("Employee is present Full Time");
-                        hourCount = hourCount + arr[i].fullDayHour;
-                        dailyWage = arr[i].wagePerHour * arr[i].fullDayHour;
+                        hourCount = hourCount + company.fullDayHour;
+                        dailyWage = company.wagePerHour * company.fullDayHour;
                         dayPresent++;
                         break;
                     case 2:
                         System.out.println("Employee is present Part Time");
-                        hourCount = hourCount + arr[i].partDayHour;
-                        dailyWage = arr[i].wagePerHour * arr[i].partDayHour;
+                        hourCount = hourCount + company.partDayHour;
+                        dailyWage = company.wagePerHour * company.partDayHour;
                         dayPresent++;
                         break;
                     default:
@@ -79,7 +159,7 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
             }
 
 
-            System.out.println("For company " + arr[i].companyName + ". \n" +
+            System.out.println("For company " + company.companyName + ". \n" +
                     "In one month of " + (dayCount - 1) + " working days:\n"
                     + "employees present for " + dayPresent + " days and \n"
                     + "worked for " + hourCount + " hours \n" +
@@ -94,41 +174,29 @@ public class EmployeeWage {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Wage Computation Program");
-
- //       CompanyEmpWage cew = new CompanyEmpWage();
-        CompanyEmpWage[] arr;
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter number of companies you would like to enter?");
-        int arrayLength = sc.nextInt();
-
-        arr = new CompanyEmpWage[arrayLength];
+            Scanner sc = new Scanner(System.in);
+            boolean addAgain = true;
 
 
-        for(int i = 0 ; i<arrayLength; i++) {
-            Scanner sc1 = new Scanner(System.in);
-            System.out.println("Enter Company Name:");
-            String companyName = sc1.nextLine();
+            EmpWageBuilder ewb = new EmpWageBuilder();
 
-            System.out.println("Enter Wage per Hour:");
-            int wagePerHour = sc1.nextInt();
+            while (addAgain){
+                ewb.addDetails();
 
-            System.out.println("Enter Hours for Full Day's work:");
-            int fullDayHour = sc1.nextInt();
+                System.out.println("Do you wish to add another Company Wage details? (If Yes , Enter Y else any key to exit)");
+                char c = sc.next().charAt(0);
 
-            System.out.println("Enter Hours for Part Time's work:");
-            int partDayHour = sc1.nextInt();
+                if(c== 'y'|| c=='Y')
+                    continue;
+                else
+                    break;
+            }
 
-            System.out.println("Enter Total No. of Working Days in a Month:");
-            int totalWorkDay = sc1.nextInt();
+            ewb.getDetails();
+            ewb.totalWage();
 
-            System.out.println("Enter Total No. of Working Hours in a Month:");
-            int totalWorkHour = sc1.nextInt();
+        System.out.println("Exiting Program...");
 
-            arr[i] = new CompanyEmpWage(companyName,wagePerHour,fullDayHour,partDayHour,totalWorkDay,totalWorkHour);
 
-        }
-        EmpWageBuilder ewb = new EmpWageBuilder();
-        ewb.totalWage(arr);
     }
 }

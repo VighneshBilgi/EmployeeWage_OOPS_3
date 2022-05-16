@@ -7,21 +7,21 @@ import java.util.Scanner;
 
 class CompanyEmpWage {
 
-     static Scanner sc1 = new Scanner(System.in);
-     String companyName;
-     int wagePerHour;
-     int fullDayHour;
-     int partDayHour;
-     int totalWorkDay;
-     int totalWorkHour ;
+    static Scanner sc1 = new Scanner(System.in);
+    String companyName;
+    int wagePerHour;
+    int fullDayHour;
+    int partDayHour;
+    int totalWorkDay;
+    int totalWorkHour ;
 
 
     CompanyEmpWage(){
 
-     }
+    }
 
     public void setCompanyName(String companyName){
-       this.companyName = companyName;
+        this.companyName = companyName;
     }
 
     public void setWagePerHour(int wagePerHour){
@@ -77,6 +77,8 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
     List<CompanyEmpWage> companyEmpWageList = new ArrayList<>();
 
 
+
+
     public void addDetails(){
         CompanyEmpWage cew = new CompanyEmpWage();
 
@@ -120,17 +122,21 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
             totalWorkHour = company.getTotalWorkHour();
             System.out.println("Total No. of Working Hours in a Month: "+totalWorkHour);
         }
-
+        System.out.println("*******************************************");
     }
     @Override
-      public void totalWage(){
+    public void totalWage(){
 
-        int dayCount = WageCalculate.dayCount;
-        int hourCount = WageCalculate.hourCount;
-        int totalWage = WageCalculate.totalWage;
-        int dayPresent = WageCalculate.dayPresent;
 
-       for(CompanyEmpWage company:companyEmpWageList) {
+
+        for(CompanyEmpWage company:companyEmpWageList) {
+
+            int dayCount = WageCalculate.dayCount;
+            int hourCount = WageCalculate.hourCount;
+            int totalWage = WageCalculate.totalWage;
+            int dayPresent = WageCalculate.dayPresent;
+
+            System.out.println("Calculating Employee Wage for Company :"+company.companyName);
             while (dayCount <= company.totalWorkDay && hourCount <= company.totalWorkHour) {
 
                 int dailyWage = 0;
@@ -163,9 +169,9 @@ class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
                     "In one month of " + (dayCount - 1) + " working days:\n"
                     + "employees present for " + dayPresent + " days and \n"
                     + "worked for " + hourCount + " hours \n" +
-                    "earn wages: " + totalWage +"\n");
+                    "earn total wages of : " + totalWage +"\n");
         }
-
+        System.out.println("*******************************************");
     }
 }
 
@@ -174,26 +180,26 @@ public class EmployeeWage {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Wage Computation Program");
-            Scanner sc = new Scanner(System.in);
-            boolean addAgain = true;
+        Scanner sc = new Scanner(System.in);
+        boolean addAgain = true;
 
 
-            EmpWageBuilder ewb = new EmpWageBuilder();
+        EmpWageBuilder ewb = new EmpWageBuilder();
 
-            while (addAgain){
-                ewb.addDetails();
+        while (addAgain) {
+            ewb.addDetails();
 
-                System.out.println("Do you wish to add another Company Wage details? (If Yes , Enter Y else any key to exit)");
-                char c = sc.next().charAt(0);
+            System.out.println("Do you wish to add another Company Wage details? (If Yes , Enter Y else any key to exit)");
+            char c = sc.next().charAt(0);
 
-                if(c== 'y'|| c=='Y')
-                    continue;
-                else
-                    break;
-            }
+            if (c == 'y' || c == 'Y')
+                continue;
+            else
+                break;
+        }
 
-            ewb.getDetails();
-            ewb.totalWage();
+        ewb.getDetails();
+        ewb.totalWage();
 
         System.out.println("Exiting Program...");
 

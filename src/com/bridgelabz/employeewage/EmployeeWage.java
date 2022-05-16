@@ -38,16 +38,17 @@ class CompanyEmpWage{
 
 }
 
-class EmpWageBuilder extends CompanyEmpWage{
+class EmpWageBuilder extends CompanyEmpWage implements WageCalculate{
 
     CompanyEmpWage[] arr = new CompanyEmpWage[arrayLength];
 
+    @Override
     public void totalWage(CompanyEmpWage[] arr){
 
-        int dayCount = 1;
-        int hourCount = 0;
-        int totalWage = 0;
-        int dayPresent = 0;
+        int dayCount = WageCalculate.dayCount;
+        int hourCount = WageCalculate.hourCount;
+        int totalWage = WageCalculate.totalWage;
+        int dayPresent = WageCalculate.dayPresent;
 
         for(int i = 0 ; i<arr.length;i++) {
             while (dayCount <= arr[i].totalWorkDay && hourCount <= arr[i].totalWorkHour) {
@@ -79,9 +80,9 @@ class EmpWageBuilder extends CompanyEmpWage{
 
 
             System.out.println("For company " + arr[i].companyName + ". \n" +
-                    "In one month of " + (dayCount - 1) + " working days, for :\n"
+                    "In one month of " + (dayCount - 1) + " working days:\n"
                     + "employees present for " + dayPresent + " days and \n"
-                    + "worked for " + hourCount + " hours. \n" +
+                    + "worked for " + hourCount + " hours \n" +
                     "earn wages: " + totalWage +"\n");
         }
 
